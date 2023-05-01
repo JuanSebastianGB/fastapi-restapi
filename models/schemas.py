@@ -1,9 +1,10 @@
 from pydantic import BaseModel
+from typing import Optional
 
 
 class ItemBase(BaseModel):
     title: str
-    description: str | None = None
+    description: Optional[str] = None
 
 
 class ItemCreate(ItemBase):

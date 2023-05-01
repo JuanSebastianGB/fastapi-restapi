@@ -6,9 +6,8 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
-app.get('/')
 
-
+@app.get('/')
 async def root():
     return {'message': 'Hello World'}
 

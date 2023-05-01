@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    ports:
+      - '8000:80'
+    restart: always
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL=mysql+pymysql://root:password@db/mydatabase
+
+  db:
+    image: mysql:5.7
+    ports:
+      - '3311:3306'
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=mydatabase
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
+    name: db_data

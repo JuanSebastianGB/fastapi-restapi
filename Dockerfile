@@ -1,0 +1,14 @@
+# Stage 1: Build stage
+FROM python:3.9-alpine AS build
+WORKDIR /app
+COPY . /app
+RUN apk add build-base
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Stage 2: Production stage
+FROM python:3.9-alpine
+WORKDIR /app
+COPY --from=build /app /app
+EXPOSE 80
+ENV ENVIRONMENT=production
+CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
